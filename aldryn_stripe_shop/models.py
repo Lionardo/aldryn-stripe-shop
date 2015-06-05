@@ -29,6 +29,5 @@ class Product(models.Model):
     disclaimer = FilerFileField(null=True, blank=True, related_name="product_disclaimer")
     price = models.IntegerField(blank=True)
 
-
 class ProductPlugin(CMSPlugin):
     product = models.ForeignKey(Product)

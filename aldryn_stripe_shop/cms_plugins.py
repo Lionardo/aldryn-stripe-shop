@@ -7,7 +7,6 @@ from django.utils.translation import ugettext as _
 from views import stripeView
 
 
-
 class CheckoutPlugin(CMSPluginBase):
     model = CheckoutPlugin
     render_template = "aldryn_stripe_shop/checkout.html"
