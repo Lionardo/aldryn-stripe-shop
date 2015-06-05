@@ -3,6 +3,7 @@ from django.db import models
 from cms.models import CMSPlugin
 from filer.fields.image import FilerImageField
 from filer.fields.file import FilerFileField
+from django.utils.encoding import smart_unicode
 from django.utils.translation import ugettext_lazy as _
 
 class Stripe(models.Model):
@@ -28,6 +29,12 @@ class Product(models.Model):
     image = FilerImageField(null=True, blank=True, related_name="product_image")
     disclaimer = FilerFileField(null=True, blank=True, related_name="product_disclaimer")
     price = models.IntegerField(blank=True)
+
+    def __unicode__(self):
+        return smart_unicode(self.title)
+
+    def copy_relations(self, oldinstance):
+        self.sections = oldinstance.sections.all()
 
 class ProductPlugin(CMSPlugin):
     product = models.ForeignKey(Product)

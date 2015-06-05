@@ -9,9 +9,8 @@ from views import stripeView
 
 class CheckoutPlugin(CMSPluginBase):
     model = CheckoutPlugin
+    module = _('stripe shop')
     render_template = "aldryn_stripe_shop/checkout.html"
-    text_enabled = True
-
 
     def render(self, context, instance, placeholder):
         context.update({
@@ -22,9 +21,9 @@ class CheckoutPlugin(CMSPluginBase):
 
 class ProductPlugin(CMSPluginBase):
     model = ProductPlugin
+    module = _('stripe shop')
     render_template = "aldryn_stripe_shop/product.html"
-    text_enabled = True
-
+    allow_children = True
 
     def render(self, context, instance, placeholder):
         products = instance.product

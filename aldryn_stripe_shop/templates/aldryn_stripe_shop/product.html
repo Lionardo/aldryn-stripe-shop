@@ -17,6 +17,9 @@
         <strong>$</strong>&nbsp;<span class="js-aldryn-stripe-price">{{ product.price }}</span>
     </div>
 </div>
+{% for plugin in instance.child_plugin_instances %}
+	{% render_plugin plugin %}
+{% endfor %}
 <hr>
 
 {% addtoblock 'js' %}<script src="{% static 'js/addons/cl.aldryn-stripe.js' %}"></script>{% endaddtoblock %}
