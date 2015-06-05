@@ -1,0 +1,19 @@
+{
+	"name": "aldryn_stripe_shop",
+	"description": "this is a lightweight shop with sttrip as payment system",
+	"url": "https://github.com/aldryn/my-app",
+	"package-name": "aldryn_stripe_shop",
+	"installed-apps": [
+		"aldryn_stripe_shop",
+		"filer",
+		"easy_thumbnails"
+	],
+	"author": {
+		"name": "Divio AG",
+		"url": "divio.ch"
+	},
+	"license": {
+		"name": "BSD",
+		"text": "!literal-include LICENSE.txt"
+	}
+}

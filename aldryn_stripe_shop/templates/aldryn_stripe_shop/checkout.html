@@ -1,0 +1,82 @@
+{% load cms_tags menu_tags sekizai_tags static %}
+
+{% block content %}
+
+<!-- NOTE: for more checkout options please check:
+https://stripe.com/docs/checkout -->
+
+<!-- NOTE: if you want a custom form:
+https://stripe.com/docs/tutorials/forms -->
+<div id="aldryn-stripe-{{ instance.pk }}" class="js-aldryn-stripe"
+    data-key="{{ instance.stripe.publishable }}"
+    data-amount=""
+    data-name="Product title"
+    {% verbatim %}
+    data-panelLabel="Pay {{amount}}"
+    {% endverbatim %}
+    {% if instance.stripe.currency %}
+        data-currency="usd"
+    {% endif %}
+    {% if instance.stripe.address %}
+        data-address="True"
+        data-zip-code="True"
+    {% endif %}
+    {% if instance.stripe.description %}
+        data-description="product description"
+    {% endif %}
+    {% if instance.stripe.bitcoin %}
+        data-bitcoin="True"
+        data-currency="usd"
+    {% endif %}
+    {% if instance.stripe.remember_me %}
+        data-allow-remember-me=""
+    {% endif %}
+    {% if instance.stripe.image %}
+        data-image="{% static 'img/aldryn.png' %}"
+    {% endif %}>
+</div>
+
+{% endblock content %}
+
+<!-- NOTE: for more info on please check:
+https://stripe.com/docs/tutorials/checkout -->
+
+{% addtoblock 'js' %}<script src="https://js.stripe.com/v2/"></script>{% endaddtoblock %}
+{% addtoblock 'js' %}<script src="https://checkout.stripe.com/checkout.js"></script>{% endaddtoblock %}
+{% addtoblock 'js' %}<script src="{% static 'js/libs/jquery.min.js' %}"></script>{% endaddtoblock %}
+{% addtoblock 'js' %}<script src="{% static 'js/libs/jquery.cookie.min.js' %}"></script>{% endaddtoblock %}
+{% addtoblock 'js' %}
+
+<script>
+jQuery(document).ready(function (){
+
+      var handler = StripeCheckout.configure({
+        key: $(this).attr('data-key'),
+        image: $(this).attr('data-image'),
+        name: $(this).attr('data-name'),
+        description: $(this).attr('data-description'),
+        amount: $(this).attr('data-amount'),
+
+        token: function(token) {
+          // Use the token to create the charge with a server-side script.
+          // You can access the token ID with `token.id`
+        }
+      });
+
+      $('.js-aldryn-stripe').on('click', function(e) {
+        handler.open($.extend({}, $(this).data(), {
+            amount: $(this).attr('data-amount'),
+            image: $(this).attr('data-image'),
+            name: $(this).attr('data-name'),
+            description: $(this).attr('data-description')
+        }));
+        e.preventDefault();
+      });
+
+      // Close Checkout on page navigation
+      $(window).on('popstate', function() {
+        handler.close();
+      });
+});
+</script>
+{% endaddtoblock %}

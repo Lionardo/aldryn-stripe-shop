@@ -1,0 +1,25 @@
+{% load cms_tags menu_tags static sekizai_tags %}
+
+<div class="js-checkout-wrapper">
+    <div class="js-aldryn-stripe-title">
+        <h1>{{ product.title }}</h1>
+    </div>
+    <div class="js-aldryn-stripe-image">
+        <img src="{{ product.image.url }}" alt="{{ product.title }}">
+    </div>
+    <div class="js-aldryn-stripe-description">
+        <p>{{ product.description|safe }}</p>
+    </div>
+    <div class="input-group input-group-lg">
+        <input type="text" value="1" name="amount" class="form-control input-lg">
+    </div>
+    <div class="spacer">
+        <strong>$</strong>&nbsp;<span class="js-aldryn-stripe-price">{{ product.price }}</span>
+    </div>
+</div>
+<hr>
+
+{% addtoblock 'js' %}<script src="{% static 'js/addons/cl.aldryn-stripe.js' %}"></script>{% endaddtoblock %}
+{% addtoblock 'js' %}<script src="{% static 'js/addons/cl.checkout.js' %}"></script>{% endaddtoblock %}
+{% addtoblock 'js' %}<script src="{% static 'js/libs/jquery.bootstrap-touchspin.js' %}"></script>{% endaddtoblock %}
+{% addtoblock 'js' %}<script src="{% static 'js/libs/class.min.js' %}"></script>{% endaddtoblock %}
