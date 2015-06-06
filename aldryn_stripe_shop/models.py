@@ -1,26 +1,34 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
+
 from cms.models import CMSPlugin
 from filer.fields.image import FilerImageField
 from filer.fields.file import FilerFileField
 from django.utils.encoding import smart_unicode
-from django.utils.translation import ugettext_lazy as _
+
 
 class Stripe(models.Model):
-    publishable = models.CharField(max_length=255)
+    name = models.CharField(_('account name'), max_length=100, blank=True)
+    publishable = models.CharField(max_length=255, blank=False)
     secret_key = models.CharField(max_length=255, unique=True)
-    address = models.BooleanField(default=True)
-    currency = models.BooleanField(default=True)
-    image = models.BooleanField(default=True)
-    remember_me = models.BooleanField(default=False)
-    description = models.BooleanField(default=False)
-    bitcoin = models.BooleanField(default=False)
+    address = models.BooleanField(default=True, help_text="Do you wish to display the adress for checkout?")
+    currency = models.BooleanField(default=True, help_text="Do you wish to display the currency for checkout?")
+    image = models.BooleanField(default=True, help_text="Do you wish to show the products image on checkout?")
+    remember_me = models.BooleanField(default=False, help_text="Do you wish to store user entries for next time?")
+    description = models.BooleanField(default=False, help_text="Do you wish to show the products description on checkout?")
+    bitcoin = models.BooleanField(default=False, help_text="Allow payments in bitcoin?")
+
+    def __unicode__(self):
+        return smart_unicode(self.name)
 
     def copy_relations(self, oldinstance):
         self.sections = oldinstance.sections.all()
 
+
 class CheckoutPlugin(CMSPlugin):
     stripe = models.ForeignKey(Stripe)
+
 
 class Product(models.Model):
     stripe = models.ForeignKey(Stripe)
@@ -35,6 +43,7 @@ class Product(models.Model):
 
     def copy_relations(self, oldinstance):
         self.sections = oldinstance.sections.all()
+
 
 class ProductPlugin(CMSPlugin):
     product = models.ForeignKey(Product)

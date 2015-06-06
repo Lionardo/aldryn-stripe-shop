@@ -30,3 +30,6 @@ env/
 
 # Translations
 *.mo
+
+# IDE configs
+/.idea

@@ -11,6 +11,7 @@ class Migration(SchemaMigration):
         # Adding model 'Stripe'
         db.create_table(u'aldryn_stripe_shop_stripe', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
             ('publishable', self.gf('django.db.models.fields.CharField')(max_length=255)),
             ('secret_key', self.gf('django.db.models.fields.CharField')(unique=True, max_length=255)),
             ('address', self.gf('django.db.models.fields.BooleanField')(default=True)),
@@ -92,6 +93,7 @@ class Migration(SchemaMigration):
             'description': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'image': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
             'publishable': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'remember_me': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'secret_key': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'})
