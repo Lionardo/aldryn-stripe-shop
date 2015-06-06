@@ -6,7 +6,8 @@ Aldryn Stripe Shop
 ###########################
 
 
-Aldryn-stripe-shop is an addon that let's you build a small webshop with stripe as payment system. This is a very simple addon that gives you the possibility to add :
+Aldryn-stripe-shop is an addon that lets you build a small webshop with stripe as payment system.
+This is a very simple addon that gives you the possibility to add:
 
 
 * title
