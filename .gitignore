@@ -32,4 +32,4 @@ env/
 *.mo
 
 # IDE configs
-/.idea
+*.idea
